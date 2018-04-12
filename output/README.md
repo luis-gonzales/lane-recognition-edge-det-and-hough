@@ -1,4 +1,4 @@
-After executing the program:
+Upon successful execution of the program:
 
 `edge-det.jpg` is the output of edge detection on the input image.
 
