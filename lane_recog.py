@@ -78,7 +78,7 @@ for line in lines:
   for x1,y1,x2,y2 in line:
     cv2.line(imHough, (x1,y1), (x2,y2), houghColor, 10)
 laneRecog = cv2.addWeighted(im, 0.95, imHough, 1, 0)
-plt.imsave('output/lane-recognition.png', laneRecog)
+plt.imsave('output/lane-recognition.jpg', laneRecog)
 
 # Add bounding box to `imHough` and overlay on `imEdgeDet`
 for k in range(vertices.shape[1]):
@@ -88,4 +88,4 @@ for k in range(vertices.shape[1]):
   cv2.line(imHough, (x1,y1), (x2,y2), boundColor, 2)
 imEdgeDet_3    = np.dstack((imEdgeDet, imEdgeDet, imEdgeDet)) 
 imEdgeDetHough = cv2.addWeighted(imEdgeDet_3, 1, imHough, 1, 0)
-plt.imsave('output/edge-det-hough.png', imEdgeDetHough)
+plt.imsave('output/edge-det-hough.jpg', imEdgeDetHough)
