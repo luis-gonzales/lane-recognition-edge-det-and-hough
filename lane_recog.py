@@ -11,8 +11,8 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
 import cv2
-import hough
-import edge_det
+from src import hough
+from src import edge_det
 import sys
 
 
@@ -23,9 +23,9 @@ useOwnEdgeDet = False
 useOwnHough   = False
 
 if numInputs > 1 and sys.argv[2] == 'own':
-  useEdgeDet = True
+  useOwnEdgeDet = True
 elif numInputs > 1 and sys.argv[2] == 'OpenCV':
-  useEdgeDet = False
+  useOwnEdgeDet = False
 elif numInputs > 1 and (sys.argv[2] != 'own' or sys.argv[2] != 'OpenCV'):
   raise ValueError('Enter proper input for edge detection type')
 
@@ -44,7 +44,7 @@ imGray = cv2.cvtColor(im, cv2.COLOR_RGB2GRAY)       # 2D np.ndarray of np.uint8
 lowThresh  = 100
 highThresh = 250
 if useOwnEdgeDet: 
-  imEdgeDet = edgedet.EdgeDet(imGray, lowThresh)       # np.ndarray of np.uint8
+  imEdgeDet = edge_det.EdgeDet(imGray, lowThresh)      # np.ndarray of np.uint8
 else:
   imEdgeDet = cv2.Canny(imGray, lowThresh, highThresh) # np.ndarray of np.uint8
 plt.imsave('output/edge-det.jpg', imEdgeDet, cmap=plt.cm.gray)
