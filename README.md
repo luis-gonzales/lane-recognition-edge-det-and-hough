@@ -14,12 +14,14 @@ The algorithm has three steps, summarized below. Edge detection and the Hough tr
 
 The Canny edge detector (`cv2.Canny`) was chosen for edge detection, particularly because edges in the input image are reduced to single-pixel width lines, a useful feature for the following Hough Transform processing. The Hough transform (`cv2.HoughLinesP`) then evaluates these identified edges pixel-by-pixel and determines whether a line (lane marking) exists.
 
-To gain experience with the implementation details of edge detection and the Hough transform, I implemented my own methods (`src/edge_det.py` and `src/hough.py`). Edge detection proved to be a very mechanical process, where kernel convolution produced horizontal and vertical gradients and these gradients were then combined with non-maximum suppression and thresholding. On the other hand, the Hough transform was challenging to implement in a computationally-efficient manner.
+To gain experience with the implementation details of edge detection and the Hough transform, I implemented my own methods (`src/edge_det.py` and `src/hough.py`). Edge detection proved to be a very mechanical process, where kernel convolution produced horizontal and vertical gradients and these gradients were then combined with non-maximum suppression and thresholding to produce an output image. On the other hand, the Hough transform was challenging to implement in a computationally-efficient manner.
 
 ### Usage
-
+Given the directory structure of the repository, particularly `input/image.jpg`, the program may be executed at the command line with `python lane_recog.py input/image.jpg`. 
 
 ### Improvements
 The `src/` implementation of the Hough transform could benefit from an accumulator not implemented as a `list`. Doing so would likely result in on-par performance to the OpenCV implementation.
+
+The literature suggests that a fraction of the remaining pixels after edge detection may be able to be ignored. `src/hough.py` does consider all white pixels post-edge detection. Improved implementations may consider the trade-off between the fraction of ignored pixels and accuracy.
 
 Expecting completion of `README` by April 13, 2018.
