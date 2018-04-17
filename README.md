@@ -26,4 +26,5 @@ The `src/` implementation of the Hough transform could benefit from an accumulat
 
 The literature suggests that a fraction of the remaining pixels after edge detection may be able to be ignored. `src/hough.py` does consider all white pixels post-edge detection. Improved implementations may consider the trade-off between the fraction of ignored pixels and accuracy.
 
-Expecting completion of `README` by April 13, 2018.
+### Dependencies
+`lane_recog.py` makes use of `numpy`, `matplotlib`, `cv2`, and `moviepy` (for `.mp4` input files).
