@@ -12,7 +12,7 @@ The algorithm has three steps, summarized below.
 * Edge detection
 * Hough transform for linear feature identification
 
-To aid edge detection, pixels in the image that can be considered yellow or white were enhanced (overwritten to pure white). The Boolean masking was achieved by converting the input from RGB colorspace to HSL colorspace.
+To aid edge detection, pixels in the image that can be considered yellow or white were enhanced (overwritten to pure white). The Boolean masking was achieved by converting the input from RGB colorspace to HSL colorspace and setting pixels that are within a predefined HSL range to pure white.
 
 The Canny edge detector, `cv2.Canny`, was chosen for edge detection, particularly because edges in the input image are reduced to single-pixel width lines, a useful feature for the subsequent Hough transform processing. The Hough transform, `cv2.HoughLinesP`, then evaluates these identified edges pixel-by-pixel and extracts lines (lane marking) according to specific input parameters.
 
