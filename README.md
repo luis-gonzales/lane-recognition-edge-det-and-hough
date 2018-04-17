@@ -12,9 +12,11 @@ The algorithm has three steps, summarized below.
 * Edge detection
 * Hough transform for linear feature identification
 
-The Canny edge detector (`cv2.Canny`) was chosen for edge detection, particularly because edges in the input image are reduced to single-pixel width lines, a useful feature for the subsequent Hough transform processing. The Hough transform (`cv2.HoughLinesP`) then evaluates these identified edges pixel-by-pixel and extracts lines (lane marking) according to specific input parameters.
+To aid edge detection, pixels in the image that can be considered yellow or white were enhanced (overwritten to pure white). The Boolean masking was achieved by converting the input from RGB colorspace to HSL colorspace.
 
-To gain experience with the implementation details of edge detection and the Hough transform, I implemented my own methods (`src/edge_det.py`). Edge detection proved to be a very mechanical process, where kernel convolution produced horizontal and vertical gradients and these gradients were then combined with non-maximum suppression and hysteresis thresholding to produce an output image. On the other hand, the Hough transform was challenging to implement in a computationally-efficient manner.
+The Canny edge detector, `cv2.Canny`, was chosen for edge detection, particularly because edges in the input image are reduced to single-pixel width lines, a useful feature for the subsequent Hough transform processing. The Hough transform, `cv2.HoughLinesP`, then evaluates these identified edges pixel-by-pixel and extracts lines (lane marking) according to specific input parameters.
+
+To gain experience with the implementation details of edge detection and the Hough transform, I implemented my own methods (`src/edge_det.py` and `src/hough.py`). Edge detection proved to be a very mechanical process, where kernel convolution produced horizontal and vertical gradients and these gradients were then combined with non-maximum suppression and thresholding to produce an output image. On the other hand, the Hough transform was challenging to implement in a computationally-efficient manner. Ultimately, I implemented a variation of the [Progressive Probabilistic Hough Transform](http://cmp.felk.cvut.cz/~matas/papers/matas-bmvc98.pdf).
 
 ### Usage
 Given the directory structure of the repository, particularly `input/image.jpg`, the program may be executed at the command line with `python lane_recog.py input/image.jpg`. 
