@@ -19,14 +19,14 @@ The Canny edge detector, `cv2.Canny`, was chosen for edge detection, particularl
 To gain experience with the implementation details of edge detection and the Hough transform, I implemented my own methods (`src/edge_det.py` and `src/hough.py`). Edge detection proved to be a very mechanical process, where kernel convolution produced horizontal and vertical gradients and these gradients were then combined with non-maximum suppression and thresholding to produce an output image. On the other hand, the Hough transform was challenging to implement in a computationally-efficient manner. Ultimately, I implemented a variation of the [Progressive Probabilistic Hough Transform](http://cmp.felk.cvut.cz/~matas/papers/matas-bmvc98.pdf).
 
 ### Usage
-Given the directory structure of the repository, particularly `input/image.jpg`, the program may be executed at the command line with `python lane_recog.py input/image.jpg`. 
+The program can be performed on a `jpg` or `mp4` file from the `input` directory by executing `python lane_recog.py input/<file>` where `<file>` is the desired input.
 
-### Improvements
-Throughout the design, it became apparent that the methods used were reliant on a fairly smooth road free of obstacles and relatively free of debris. For this reason, the input was preprocessed with a Gaussian blur. However, a Gaussian blur may not be enough for some unusual road surfaces or when a large debris is present.
+`lane_recog.py` does not make use of `src/edge_det.py` or `src/hough.py`. The `cv2.HoughLinesP` usage in `lane_recog.py` can be replaced with the method in `src/hough.py`, but `src/edge_det.py` is not recommended for usage because it does not perform hysteresis thresholding.
 
-The `src/` implementation of the Hough transform could benefit from an accumulator not implemented as a `list`. Doing so would likely result in on-par performance to the OpenCV implementation.
+### Shortcomings and Improvements
+Throughout the design, it became apparent that the methods used relied on a fairly smooth road, free of obstacles and relatively free of debris. For this reason, the input was preprocessed with a Gaussian blur. However, a Gaussian blur may not be enough for some unusual road surfaces or when obstacles or large debris are present. The danger is that these features could be mistaken for a lane in the algorithm.
 
-The literature suggests that a fraction of the remaining pixels after edge detection may be able to be ignored. `src/hough.py` does consider all white pixels post-edge detection. Improved implementations may consider the trade-off between the fraction of ignored pixels and accuracy.
+The `src/hough.py` implementation of the Hough transform could benefit from an accumulator not implemented as a `list`. Doing so would likely result in on-par performance to the OpenCV implementation.
 
 ### Dependencies
 `lane_recog.py` makes use of `numpy`, `matplotlib`, `cv2`, and `moviepy` (for `.mp4` input files).
